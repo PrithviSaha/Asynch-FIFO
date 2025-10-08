@@ -3,9 +3,9 @@
 class fifo_test extends uvm_test;
 
   `uvm_component_utils(fifo_test)
-  
+
   fifo_env env;
-  fifo_virtual_sequence vseq;
+  fifo_vsequence vseq;
 
   function new(string name = "fifo_test", uvm_component parent);
     super.new(name,parent);
@@ -13,14 +13,14 @@ class fifo_test extends uvm_test;
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    env = fifo_env::type_id::create("env",this); 
+    env = fifo_env::type_id::create("env",this);
   endfunction
 
   task run_phase(uvm_phase phase);
     phase.raise_objection(this);
-    vseq = fifo_virtual_sequence::type_id::create("vseq");
+    vseq = fifo_vsequence::type_id::create("vseq");
     vseq.start(env.vseqr);
-    //#200;
     phase.drop_objection(this);
-  endtask 
+  endtask
 endclass
+

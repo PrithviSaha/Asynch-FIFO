@@ -33,7 +33,7 @@ interface fifo_intf(input bit wclk,wrst_n,rrst_n,rclk);
   modport MON_R(clocking drv_r_cb, input rclk,rrst_n);
   modport DRV_W(clocking drv_w_cb, input wclk,wrst_n);
   modport MON_W(clocking mon_w_cb, input wclk,wrst_n);
-/*
+
   property VALID_CHECK_WRITE;
     @(posedge wclk) wrst_n |-> not($isunknown({winc,wdata}));
   endproperty
@@ -74,7 +74,7 @@ interface fifo_intf(input bit wclk,wrst_n,rrst_n,rclk);
     $error("RESET FAILED");
   end
 
-*/
+
 endinterface
 
 

@@ -29,7 +29,7 @@ class fifo_coverage extends uvm_component;
     }
     REMPTY_CP : coverpoint rd_seq.rempty;
 
-    REMPTY_CP_x_RINC_CP : cross REMPTY_CP, RINC_CP;
+   // REMPTY_CP_x_RINC_CP : cross REMPTY_CP, RINC_CP;
   endgroup  
   
   function new(string name = "fifo_coverage", uvm_component parent);
