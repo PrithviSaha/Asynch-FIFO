@@ -1,0 +1,24 @@
+var g_data = {
+a1086:{
+scopes:[{s:'991',b:'1',val:'fifo_pkg'},{val:'fifo_write_sequence'},{s:'1085',b:'0',val:'body'},{link:'z.htm?f=0&s=1086',val:'#ublk#265642455#14'}]
+,assertions:[{dummy:0},{cr:'c',c:'g',z:'immed__16',fc:'Gr',pc:'Gr',h0:'0',h1:'20'}
+],
+},
+a1101:{
+scopes:[{s:'991',b:'1',val:'fifo_pkg'},{val:'fifo_read_sequence'},{s:'1100',b:'0',val:'body'},{link:'z.htm?f=0&s=1101',val:'#ublk#265642455#34'}]
+,assertions:[{dummy:0},{cr:'c',c:'g',z:'immed__36',fc:'Gr',pc:'Gr',h0:'0',h1:'20'}
+],
+},
+a1386:{
+scopes:[{s:'1291',b:'1',val:'work.fifo_pkg'},{val:'fifo_write_sequence'},{s:'1385',b:'0',val:'body'},{link:'z.htm?f=0&s=1386',val:'#ublk#265642455#14'}]
+,assertions:[{dummy:0},{cr:'c',c:'g',z:'immed__16',fc:'Gr',pc:'Gr',h0:'0',h1:'20'}
+],
+},
+a1401:{
+scopes:[{s:'1291',b:'1',val:'work.fifo_pkg'},{val:'fifo_read_sequence'},{s:'1400',b:'0',val:'body'},{link:'z.htm?f=0&s=1401',val:'#ublk#265642455#34'}]
+,assertions:[{dummy:0},{cr:'c',c:'g',z:'immed__36',fc:'Gr',pc:'Gr',h0:'0',h1:'20'}
+],
+},
+dummyEnd:0
+};
+processAssertionsData(g_data,1);

@@ -1,0 +1,595 @@
+# vsim -vopt work.top -voptargs="+acc=npr" -assertdebug -l simulation.log -coverage -c -do "coverage save -onexit -assert -directive -cvg -codeAll coverage.ucdb; run -all; exit" 
+# Start time: 17:00:19 on Oct 07,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim
+# //  Version 10.6c linux Jul 25 2017
+# //
+# //  Copyright 1991-2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.fifo_intf(fast)
+# Loading mtiUvm.uvm_pkg
+# Loading work.fifo_pkg(fast)
+# Loading work.top(fast)
+# Loading work.fifo_intf(fast)
+# Loading work.FIFO(fast)
+# Loading work.two_ff_sync(fast)
+# Loading work.FIFO_memory(fast)
+# Loading work.rptr_empty(fast)
+# Loading work.wptr_full(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# Loading /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/linux/uvm_dpi.so
+# coverage save -onexit -assert -directive -cvg -codeAll coverage.ucdb
+#  run -all
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# 
+#   ***********       IMPORTANT RELEASE NOTES         ************
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_NO_DEPRECATED undefined.
+#   See http://www.eda.org/svdb/view.php?id=3313 for more details.
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+#   See http://www.eda.org/svdb/view.php?id=3770 for more details.
+# 
+#       (Specify +UVM_NO_RELNOTES to turn off this notice)
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(215) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(217) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
+# UVM_INFO @ 0: reporter [RNTST] Running test fifo_test...
+# UVM_INFO fifo_driver.sv(27) @ 25: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 173 |
+# write data received here @ 45
+# UVM_INFO fifo_monitor.sv(39) @ 45: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 173 | 
+# UVM_INFO fifo_monitor.sv(40) @ 45: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 0 |
+# 
+# UVM_INFO fifo_driver.sv(27) @ 45: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 87 |
+# UVM_INFO fifo_driver.sv(67) @ 50: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 65
+# UVM_INFO fifo_monitor.sv(39) @ 65: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 87 | 
+# UVM_INFO fifo_monitor.sv(40) @ 65: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 0 |
+# 
+# UVM_INFO fifo_driver.sv(27) @ 65: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 75 |
+# write data received here @ 85
+# UVM_INFO fifo_monitor.sv(39) @ 85: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 75 | 
+# UVM_INFO fifo_monitor.sv(40) @ 85: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 0 |
+# 
+# UVM_INFO fifo_driver.sv(27) @ 85: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 96 |
+# read data received here @ 90
+# UVM_INFO fifo_monitor.sv(83) @ 90: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 90: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 173 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(64) @ 90: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(65) @ 90: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | PASSED | rdata = 173 | ref_data = 173 |
+# UVM_INFO fifo_scoreboard.sv(66) @ 90: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 1 | MATCH = 1 | MISMATCH = 0 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 90: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 105
+# UVM_INFO fifo_monitor.sv(39) @ 105: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 96 | 
+# UVM_INFO fifo_monitor.sv(40) @ 105: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 0 |
+# 
+# UVM_INFO fifo_driver.sv(27) @ 105: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 163 |
+# write data received here @ 125
+# UVM_INFO fifo_monitor.sv(39) @ 125: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 163 | 
+# UVM_INFO fifo_monitor.sv(40) @ 125: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 0 |
+# 
+# UVM_INFO fifo_driver.sv(27) @ 125: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 219 |
+# read data received here @ 130
+# UVM_INFO fifo_monitor.sv(83) @ 130: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 130: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 87 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(64) @ 130: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(65) @ 130: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | PASSED | rdata = 87 | ref_data = 87 |
+# UVM_INFO fifo_scoreboard.sv(66) @ 130: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 2 | MATCH = 2 | MISMATCH = 0 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 130: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 145
+# UVM_INFO fifo_monitor.sv(39) @ 145: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 219 | 
+# UVM_INFO fifo_monitor.sv(40) @ 145: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 0 |
+# 
+# UVM_INFO fifo_driver.sv(27) @ 145: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 143 |
+# write data received here @ 165
+# UVM_INFO fifo_monitor.sv(39) @ 165: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 143 | 
+# UVM_INFO fifo_monitor.sv(40) @ 165: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 0 |
+# 
+# UVM_INFO fifo_driver.sv(27) @ 165: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 91 |
+# read data received here @ 170
+# UVM_INFO fifo_monitor.sv(83) @ 170: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 170: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 75 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(64) @ 170: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(65) @ 170: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | PASSED | rdata = 75 | ref_data = 75 |
+# UVM_INFO fifo_scoreboard.sv(66) @ 170: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 3 | MATCH = 3 | MISMATCH = 0 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 170: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 185
+# UVM_INFO fifo_monitor.sv(39) @ 185: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 91 | 
+# UVM_INFO fifo_monitor.sv(40) @ 185: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 0 |
+# 
+# UVM_INFO fifo_driver.sv(27) @ 185: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 21 |
+# write data received here @ 205
+# UVM_INFO fifo_monitor.sv(39) @ 205: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 21 | 
+# UVM_INFO fifo_monitor.sv(40) @ 205: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 0 |
+# 
+# UVM_INFO fifo_driver.sv(27) @ 205: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 133 |
+# read data received here @ 210
+# UVM_INFO fifo_monitor.sv(83) @ 210: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 210: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 96 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(64) @ 210: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(65) @ 210: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | PASSED | rdata = 96 | ref_data = 96 |
+# UVM_INFO fifo_scoreboard.sv(66) @ 210: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 4 | MATCH = 4 | MISMATCH = 0 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 210: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 225
+# UVM_INFO fifo_monitor.sv(39) @ 225: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 133 | 
+# UVM_INFO fifo_monitor.sv(40) @ 225: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 0 |
+# 
+# UVM_INFO fifo_driver.sv(27) @ 225: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 245 |
+# write data received here @ 245
+# UVM_INFO fifo_monitor.sv(39) @ 245: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 245 | 
+# UVM_INFO fifo_monitor.sv(40) @ 245: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 0 |
+# 
+# UVM_INFO fifo_driver.sv(27) @ 245: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 166 |
+# read data received here @ 250
+# UVM_INFO fifo_monitor.sv(83) @ 250: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 250: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 163 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(64) @ 250: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(65) @ 250: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | PASSED | rdata = 163 | ref_data = 163 |
+# UVM_INFO fifo_scoreboard.sv(66) @ 250: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 5 | MATCH = 5 | MISMATCH = 0 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 250: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 265
+# UVM_INFO fifo_monitor.sv(39) @ 265: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 166 | 
+# UVM_INFO fifo_monitor.sv(40) @ 265: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 265: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# UVM_INFO fifo_driver.sv(27) @ 265: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 20 |
+# write data received here @ 285
+# UVM_INFO fifo_monitor.sv(39) @ 285: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 20 | 
+# UVM_INFO fifo_monitor.sv(40) @ 285: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 285: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# UVM_INFO fifo_driver.sv(27) @ 285: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 131 |
+# read data received here @ 290
+# UVM_INFO fifo_monitor.sv(83) @ 290: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 290: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 219 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(64) @ 290: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(65) @ 290: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | PASSED | rdata = 219 | ref_data = 219 |
+# UVM_INFO fifo_scoreboard.sv(66) @ 290: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 6 | MATCH = 6 | MISMATCH = 0 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 290: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 305
+# UVM_INFO fifo_monitor.sv(39) @ 305: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 131 | 
+# UVM_INFO fifo_monitor.sv(40) @ 305: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 305: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# UVM_INFO fifo_driver.sv(27) @ 305: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 239 |
+# write data received here @ 325
+# UVM_INFO fifo_monitor.sv(39) @ 325: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 239 | 
+# UVM_INFO fifo_monitor.sv(40) @ 325: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 325: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# UVM_INFO fifo_driver.sv(27) @ 325: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 2 |
+# read data received here @ 330
+# UVM_INFO fifo_monitor.sv(83) @ 330: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 330: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 143 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(64) @ 330: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(65) @ 330: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | PASSED | rdata = 143 | ref_data = 143 |
+# UVM_INFO fifo_scoreboard.sv(66) @ 330: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 7 | MATCH = 7 | MISMATCH = 0 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 330: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 345
+# UVM_INFO fifo_monitor.sv(39) @ 345: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 2 | 
+# UVM_INFO fifo_monitor.sv(40) @ 345: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 345: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# UVM_INFO fifo_driver.sv(27) @ 345: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 131 |
+# write data received here @ 365
+# UVM_INFO fifo_monitor.sv(39) @ 365: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 131 | 
+# UVM_INFO fifo_monitor.sv(40) @ 365: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 365: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# UVM_INFO fifo_driver.sv(27) @ 365: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 17 |
+# read data received here @ 370
+# UVM_INFO fifo_monitor.sv(83) @ 370: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 370: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 91 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(64) @ 370: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(65) @ 370: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | PASSED | rdata = 91 | ref_data = 91 |
+# UVM_INFO fifo_scoreboard.sv(66) @ 370: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 8 | MATCH = 8 | MISMATCH = 0 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 370: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 385
+# UVM_INFO fifo_monitor.sv(39) @ 385: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 17 | 
+# UVM_INFO fifo_monitor.sv(40) @ 385: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 385: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# UVM_INFO fifo_driver.sv(27) @ 385: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 48 |
+# write data received here @ 405
+# UVM_INFO fifo_monitor.sv(39) @ 405: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 48 | 
+# UVM_INFO fifo_monitor.sv(40) @ 405: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 405: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# UVM_INFO fifo_driver.sv(27) @ 405: uvm_test_top.env.wr_agt.wr_drv [fifo_write_driver] | -> WRITE - DRIVER <- | WINC = 1 |  WDATA = 207 |
+# read data received here @ 410
+# UVM_INFO fifo_monitor.sv(83) @ 410: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 410: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 21 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(64) @ 410: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(65) @ 410: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | PASSED | rdata = 21 | ref_data = 21 |
+# UVM_INFO fifo_scoreboard.sv(66) @ 410: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 9 | MATCH = 9 | MISMATCH = 0 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 410: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 425
+# UVM_INFO fifo_monitor.sv(39) @ 425: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 425: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 425: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# write data received here @ 445
+# UVM_INFO fifo_monitor.sv(39) @ 445: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 445: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 445: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# read data received here @ 450
+# UVM_INFO fifo_monitor.sv(83) @ 450: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 450: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 133 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(64) @ 450: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(65) @ 450: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | PASSED | rdata = 133 | ref_data = 133 |
+# UVM_INFO fifo_scoreboard.sv(66) @ 450: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 10 | MATCH = 10 | MISMATCH = 0 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 450: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 465
+# UVM_INFO fifo_monitor.sv(39) @ 465: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 465: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 465: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# write data received here @ 485
+# UVM_INFO fifo_monitor.sv(39) @ 485: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 485: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 485: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# read data received here @ 490
+# UVM_INFO fifo_monitor.sv(83) @ 490: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 490: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 245 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(64) @ 490: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(65) @ 490: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | PASSED | rdata = 245 | ref_data = 245 |
+# UVM_INFO fifo_scoreboard.sv(66) @ 490: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 11 | MATCH = 11 | MISMATCH = 0 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 490: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 505
+# UVM_INFO fifo_monitor.sv(39) @ 505: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 505: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 505: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# write data received here @ 525
+# UVM_INFO fifo_monitor.sv(39) @ 525: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 525: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 525: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# read data received here @ 530
+# UVM_INFO fifo_monitor.sv(83) @ 530: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 530: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 166 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(64) @ 530: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(65) @ 530: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | PASSED | rdata = 166 | ref_data = 166 |
+# UVM_INFO fifo_scoreboard.sv(66) @ 530: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 12 | MATCH = 12 | MISMATCH = 0 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 530: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 545
+# UVM_INFO fifo_monitor.sv(39) @ 545: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 545: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 545: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# write data received here @ 565
+# UVM_INFO fifo_monitor.sv(39) @ 565: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 565: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 565: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# read data received here @ 570
+# UVM_INFO fifo_monitor.sv(83) @ 570: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 570: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 131 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(72) @ 570: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(73) @ 570: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | FAILED | rdata = 131 | ref_data = 20 |
+# UVM_INFO fifo_scoreboard.sv(74) @ 570: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 13 | MATCH = 12 | MISMATCH = 1 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 570: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 585
+# UVM_INFO fifo_monitor.sv(39) @ 585: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 585: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 585: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# write data received here @ 605
+# UVM_INFO fifo_monitor.sv(39) @ 605: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 605: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 605: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# read data received here @ 610
+# UVM_INFO fifo_monitor.sv(83) @ 610: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 610: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 2 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(72) @ 610: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(73) @ 610: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | FAILED | rdata = 2 | ref_data = 131 |
+# UVM_INFO fifo_scoreboard.sv(74) @ 610: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 14 | MATCH = 12 | MISMATCH = 2 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 610: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 625
+# UVM_INFO fifo_monitor.sv(39) @ 625: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 625: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 625: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# write data received here @ 645
+# UVM_INFO fifo_monitor.sv(39) @ 645: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 645: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# ** Warning: fifo_scoreboard.sv(47): Queue operation would exceed max. right index of 15.
+#    Time: 645 ns  Iteration: 4  Region: /fifo_pkg::fifo_scoreboard::run_phase
+# UVM_INFO fifo_scoreboard.sv(48) @ 645: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# read data received here @ 650
+# UVM_INFO fifo_monitor.sv(83) @ 650: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 650: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 17 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(72) @ 650: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(73) @ 650: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | FAILED | rdata = 17 | ref_data = 239 |
+# UVM_INFO fifo_scoreboard.sv(74) @ 650: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 15 | MATCH = 12 | MISMATCH = 3 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 650: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 665
+# UVM_INFO fifo_monitor.sv(39) @ 665: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 665: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 665: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# write data received here @ 685
+# UVM_INFO fifo_monitor.sv(39) @ 685: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 685: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# ** Warning: fifo_scoreboard.sv(47): Queue operation would exceed max. right index of 15.
+#    Time: 685 ns  Iteration: 4  Region: /fifo_pkg::fifo_scoreboard::run_phase
+# UVM_INFO fifo_scoreboard.sv(48) @ 685: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# read data received here @ 690
+# UVM_INFO fifo_monitor.sv(83) @ 690: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 690: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 207 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(72) @ 690: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(73) @ 690: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | FAILED | rdata = 207 | ref_data = 2 |
+# UVM_INFO fifo_scoreboard.sv(74) @ 690: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 16 | MATCH = 12 | MISMATCH = 4 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 690: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 705
+# UVM_INFO fifo_monitor.sv(39) @ 705: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 705: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 705: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# write data received here @ 725
+# UVM_INFO fifo_monitor.sv(39) @ 725: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 725: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# ** Warning: fifo_scoreboard.sv(47): Queue operation would exceed max. right index of 15.
+#    Time: 725 ns  Iteration: 4  Region: /fifo_pkg::fifo_scoreboard::run_phase
+# UVM_INFO fifo_scoreboard.sv(48) @ 725: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# read data received here @ 730
+# UVM_INFO fifo_monitor.sv(83) @ 730: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 730: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 207 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(72) @ 730: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(73) @ 730: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | FAILED | rdata = 207 | ref_data = 131 |
+# UVM_INFO fifo_scoreboard.sv(74) @ 730: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 17 | MATCH = 12 | MISMATCH = 5 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 730: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 745
+# UVM_INFO fifo_monitor.sv(39) @ 745: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 745: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 745: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# write data received here @ 765
+# UVM_INFO fifo_monitor.sv(39) @ 765: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 765: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# ** Warning: fifo_scoreboard.sv(47): Queue operation would exceed max. right index of 15.
+#    Time: 765 ns  Iteration: 4  Region: /fifo_pkg::fifo_scoreboard::run_phase
+# UVM_INFO fifo_scoreboard.sv(48) @ 765: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# read data received here @ 770
+# UVM_INFO fifo_monitor.sv(83) @ 770: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 770: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 207 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(72) @ 770: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(73) @ 770: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | FAILED | rdata = 207 | ref_data = 17 |
+# UVM_INFO fifo_scoreboard.sv(74) @ 770: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 18 | MATCH = 12 | MISMATCH = 6 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 770: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 785
+# UVM_INFO fifo_monitor.sv(39) @ 785: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 785: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 785: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# write data received here @ 805
+# UVM_INFO fifo_monitor.sv(39) @ 805: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 805: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# ** Warning: fifo_scoreboard.sv(47): Queue operation would exceed max. right index of 15.
+#    Time: 805 ns  Iteration: 4  Region: /fifo_pkg::fifo_scoreboard::run_phase
+# UVM_INFO fifo_scoreboard.sv(48) @ 805: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# read data received here @ 810
+# UVM_INFO fifo_monitor.sv(83) @ 810: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 810: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 207 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(72) @ 810: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(73) @ 810: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | FAILED | rdata = 207 | ref_data = 48 |
+# UVM_INFO fifo_scoreboard.sv(74) @ 810: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 19 | MATCH = 12 | MISMATCH = 7 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO fifo_driver.sv(67) @ 810: uvm_test_top.env.rd_agt.rd_drv [fifo_read_driver] | -> READ - DRIVER <- | RINC = 1 |
+# write data received here @ 825
+# UVM_INFO fifo_monitor.sv(39) @ 825: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 825: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# UVM_INFO fifo_scoreboard.sv(48) @ 825: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# write data received here @ 845
+# UVM_INFO fifo_monitor.sv(39) @ 845: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE-MONITOR-INPUTS | WINC = 1 | WDATA = 207 | 
+# UVM_INFO fifo_monitor.sv(40) @ 845: uvm_test_top.env.wr_agt.wr_mon [fifo_write_monitor] | WRITE_MONITOR-OUTPUT | WFULL = 1 |
+# 
+# ** Warning: fifo_scoreboard.sv(47): Queue operation would exceed max. right index of 15.
+#    Time: 845 ns  Iteration: 4  Region: /fifo_pkg::fifo_scoreboard::run_phase
+# UVM_INFO fifo_scoreboard.sv(48) @ 845: uvm_test_top.env.scb [fifo_scoreboard] FIFO is FULL cannot write more data
+# read data received here @ 850
+# UVM_INFO fifo_monitor.sv(83) @ 850: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ-MONITOR-INPUTS |  RINC = 1 |
+# UVM_INFO fifo_monitor.sv(84) @ 850: uvm_test_top.env.rd_agt.rd_mon [fifo_read_monitor] | READ_MONITOR-OUTPUT | RDATA = 207 | REMPTY = 0 | 
+# 
+# UVM_INFO fifo_scoreboard.sv(64) @ 850: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# UVM_INFO fifo_scoreboard.sv(65) @ 850: uvm_test_top.env.scb [fifo_scoreboard]  | SCOREBOARD | PASSED | rdata = 207 | ref_data = 207 |
+# UVM_INFO fifo_scoreboard.sv(66) @ 850: uvm_test_top.env.scb [fifo_scoreboard]  ------------------------------------------------------
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# TOTAL TXNS : 20 | MATCH = 13 | MISMATCH = 7 |
+# 
+# ---------------------------------------------------------------- TESTBENCH ----------------------------------------------------------------------------
+# 
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1268) @ 850: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# ------------------------- WRITE - COVERAGE ------------------------------
+# 
+#  !!!! WRITE MONITOR COVERAGE = 87.50 % !!!!
+# 
+# ------------------------- WRITE -COVERAGE ------------------------------
+# 
+# ------------------------- READ - COVERAGE ------------------------------
+# 
+#  !!!! READ MONITOR COVERAGE = 56.25 % !!!!
+# 
+# ------------------------- READ - COVERAGE ------------------------------
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :  256
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [Questa UVM]     2
+# [RNTST]     1
+# [TEST_DONE]     1
+# [fifo_read_driver]    20
+# [fifo_read_monitor]    40
+# [fifo_scoreboard]    90
+# [fifo_write_driver]    20
+# [fifo_write_monitor]    82
+# ** Note: $finish    : /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 850 ns  Iteration: 68  Instance: /top
+# Saving coverage database on exit...
+# End time: 17:00:23 on Oct 07,2025, Elapsed time: 0:00:04
+# Errors: 0, Warnings: 6
