@@ -24,7 +24,6 @@ class fifo_write_monitor extends uvm_monitor;
 
   function void wr_monitor();
     wr_mon_seq.winc = vif.winc;
-    //wr_mon_seq.wrst_n = vif.wrst_n;
     wr_mon_seq.wdata = vif.wdata;
     wr_mon_seq.wfull = vif.wfull;
     analysis_write_port.write(wr_mon_seq);
@@ -39,7 +38,7 @@ class fifo_write_monitor extends uvm_monitor;
       `uvm_info(get_type_name(), $sformatf("| WRITE-MONITOR-INPUTS | WINC = %0d | WDATA = %0d | ",  wr_mon_seq.winc, wr_mon_seq.wdata ), UVM_MEDIUM)
       `uvm_info(get_type_name(), $sformatf("| WRITE_MONITOR-OUTPUT | WFULL = %0d |",wr_mon_seq.wfull), UVM_MEDIUM)
       $display("");
-      repeat(1)@(vif.mon_w_cb);
+//      repeat(1)@(vif.mon_w_cb);
     end
   endtask
 
@@ -68,7 +67,6 @@ class fifo_read_monitor extends uvm_monitor;
 
   function void rd_monitor();
     rd_mon_seq.rinc = vif.rinc;
-    //rd_mon_seq.rrst_n = vif.rrst_n;
     rd_mon_seq.rdata = vif.rdata;
     rd_mon_seq.rempty = vif.rempty;
     analysis_read_port.write(rd_mon_seq);
@@ -83,7 +81,7 @@ class fifo_read_monitor extends uvm_monitor;
       `uvm_info(get_type_name(), $sformatf("| READ-MONITOR-INPUTS |  RINC = %0d |", rd_mon_seq.rinc), UVM_MEDIUM)
       `uvm_info(get_type_name(), $sformatf("| READ_MONITOR-OUTPUT | RDATA = %0d | REMPTY = %0d | ",rd_mon_seq.rdata,rd_mon_seq.rempty), UVM_MEDIUM)
       $display("");
-      repeat(1)@(vif.mon_r_cb);
+//      repeat(1)@(vif.mon_r_cb);
     end
   endtask
 

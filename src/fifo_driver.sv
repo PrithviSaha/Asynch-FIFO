@@ -25,7 +25,7 @@ class fifo_write_driver extends uvm_driver#(fifo_write_seq_item);
 //      end
 //      else begin
       `uvm_info(get_type_name(), $sformatf("| -> WRITE - DRIVER <- | WINC = %0d |  WDATA = %0d |",req.winc,req.wdata), UVM_MEDIUM)
-        repeat(2)@(vif.drv_w_cb);
+        repeat(1)@(vif.drv_w_cb);
 //      end
 //      `uvm_info(get_type_name(), $sformatf("| -> WRITE - DRIVER <- | WINC = %0d |  WDATA = %0d |",req.winc,req.wdata), UVM_MEDIUM)
       seq_item_port.item_done();
@@ -65,7 +65,7 @@ class fifo_read_driver extends uvm_driver#(fifo_read_seq_item);
 //      else begin
 
         `uvm_info(get_type_name(), $sformatf("| -> READ - DRIVER <- | RINC = %0d |",req.rinc), UVM_MEDIUM)
-        repeat(2)@(vif.drv_r_cb);
+        repeat(1)@(vif.drv_r_cb);
 //      end
       //`uvm_info(get_type_name(), $sformatf("| -> READ - DRIVER <- | RINC = %0d |",req.rinc), UVM_MEDIUM)
       seq_item_port.item_done();
