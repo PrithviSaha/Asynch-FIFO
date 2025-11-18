@@ -1,213 +1,216 @@
-`include "defines.svh"
+class write_sequence extends uvm_sequence #(wr_seq_item);
+        `uvm_object_utils(write_sequence);
 
-class fifo_wsequence extends uvm_sequence#(fifo_write_seq_item);
-
-  `uvm_object_utils(fifo_wsequence)
-  fifo_write_seq_item req;
-
-  function new(string name = "fifo_write_sequence");
+        function new(string name="write_sequence");
     super.new(name);
   endfunction
 
-  task body();
-    repeat(`num_of_txns) begin
-    req = fifo_write_seq_item::type_id::create("req");
-      start_item(req);
-      assert(req.randomize() with {req.winc == 1;});
-      finish_item(req);
+        task body();
+    int count;
+    wr_seq_item item;
+    repeat (N) begin
+      item = wr_seq_item::type_id::create("write_item");
+      wait_for_grant();
+      item.randomize() with {winc == 1;};
+      `uvm_info(get_type_name(), $sformatf("[%0t] Write Transaction %0d: winc=%0b, wdata=%0d", $time, count, item.winc, item.wdata), UVM_LOW);
+                        send_request(item);
+      wait_for_item_done();
+      count++;
     end
+    wait_for_grant();
+    item.randomize() with {winc == 0;};
+    `uvm_info(get_type_name(), $sformatf("[%0t] Write Transaction %0d: winc=%0b, wdata=%0d", $time, count, item.winc, item.wdata), UVM_LOW);
+                        send_request(item);
+      wait_for_item_done();
   endtask
 endclass
-class fifo_wsequence2 extends uvm_sequence#( fifo_write_seq_item);
-  `uvm_object_utils(fifo_wsequence2)
 
-   fifo_write_seq_item req;
-
-  function new( string name = "fifo_wsequence2");
-    super.new(name);
-  endfunction: new
-
-  task body();
-    repeat(`num_of_txns) begin
-      req =  fifo_write_seq_item::type_id::create("req");
-      `uvm_rand_send_with(req, {req.winc == 1;})
-    end
-  endtask: body
-
-endclass
-
-class fifo_wsequence3 extends uvm_sequence#( fifo_write_seq_item);
-  `uvm_object_utils(fifo_wsequence3)
-
-   fifo_write_seq_item req;
-
-  function new( string name = "fifo_wsequence3");
-      super.new(name);
-  endfunction: new
-
-  task body();
-    repeat(`num_of_txns) begin
-      req =  fifo_write_seq_item::type_id::create("req");
-      `uvm_rand_send_with(req, {req.winc == 1;})
-    end
-    repeat(`num_of_txns) begin
-      req =  fifo_write_seq_item::type_id::create("req");
-      `uvm_rand_send_with(req, {req.winc == 0;})
-    end
-
-  endtask: body
-endclass : fifo_wsequence3
-
-
-class fifo_rsequence extends uvm_sequence#(fifo_read_seq_item);
-
-  `uvm_object_utils(fifo_rsequence)
-
-  fifo_read_seq_item req;
-
-  function new(string name = "fifo_read_sequence");
+class read_sequence extends uvm_sequence #(rd_seq_item);
+  `uvm_object_utils(read_sequence)
+  function new(string name="read_sequence");
     super.new(name);
   endfunction
 
-  task body();
-    repeat(`num_of_txns) begin
-    req = fifo_read_seq_item::type_id::create("req");
-      start_item(req);
-      assert(req.randomize() with {req.rinc == 1;});
-      finish_item(req);
+  virtual task body();
+    int count;
+    rd_seq_item item;
+    repeat(N) begin
+      item = rd_seq_item::type_id::create("read_item");
+        wait_for_grant();
+      item.randomize() with {rinc == 0;};
+      `uvm_info(get_type_name(), $sformatf("[%0t] Read Transaction %0d: rinc=%0b", $time, count, item.rinc), UVM_LOW);
+                        send_request(item);
+      wait_for_item_done();
+    end
+    repeat(N) begin
+        wait_for_grant();
+      item.randomize() with {rinc == 1;};
+      `uvm_info(get_type_name(), $sformatf("[%0t] Read Transaction %0d: rinc=%0b", $time, count, item.rinc), UVM_LOW);
+                        send_request(item);
+      wait_for_item_done();
     end
   endtask
 endclass
 
-class fifo_rsequence2 extends uvm_sequence#( fifo_read_seq_item);
-  `uvm_object_utils(fifo_rsequence2)
+class p_read_sequence extends uvm_sequence;
+  `uvm_object_utils(p_read_sequence)
+  function new(string name="parallel_read_sequence");
+    super.new(name);
+  endfunction
 
-   fifo_read_seq_item req;
-
-  function new( string name = "fifo_rsequence2");
-      super.new(name);
-  endfunction: new
-
-  task body();
-    repeat(`num_of_txns) begin
-      req =  fifo_read_seq_item::type_id::create("req");
-      `uvm_rand_send_with(req,{req.rinc == 0;})
+  virtual task body();
+    int count;
+    rd_seq_item item;
+    item = rd_seq_item::type_id::create("read_item");
+    wait_for_grant();
+    item.randomize() with {rinc == 0;};
+                send_request(item);
+    wait_for_item_done();
+    
+    repeat(N) begin
+      item = rd_seq_item::type_id::create("read_item");
+        wait_for_grant();
+      item.randomize() with {rinc == 1;};
+      `uvm_info(get_type_name(), $sformatf("[%0t] Read Transaction %0d: rinc=%0b", $time, count, item.rinc), UVM_LOW);
+                        send_request(item);
+      wait_for_item_done();
     end
- endtask: body
+    wait_for_grant();
+    item.randomize() with {rinc == 0;};
+                send_request(item);
+    wait_for_item_done();
+        endtask;
+endclass
 
-endclass : fifo_rsequence2
 
+class p_write_sequence extends uvm_sequence;
+  `uvm_object_utils(p_write_sequence)
+  function new(string name="parallel_write_sequence");
+    super.new(name);
+  endfunction
 
-class fifo_rsequence3 extends uvm_sequence#( fifo_read_seq_item);
-  `uvm_object_utils(fifo_rsequence3)
-
-   fifo_read_seq_item req;
-
-  function new( string name = "fifo_rsequence3");
-      super.new(name);
-  endfunction: new
-
-  task body();
-    repeat(`num_of_txns) begin
-      req =  fifo_read_seq_item::type_id::create("req");
-      `uvm_rand_send_with(req,{req.rinc == 0;})
+  virtual task body();
+    int count;
+    wr_seq_item item;
+      item = wr_seq_item::type_id::create("write_item");
+    wait_for_grant();
+    item.randomize() with {winc == 0;};
+                send_request(item);
+    wait_for_item_done();
+    repeat(N) begin
+      item = wr_seq_item::type_id::create("write_item");
+        wait_for_grant();
+      item.randomize() with {winc == 1;};
+      `uvm_info(get_type_name(), $sformatf("[%0t] Write Transaction %0d: winc=%0b", $time, count, item.winc), UVM_LOW);
+                        send_request(item);
+      wait_for_item_done();
     end
-   repeat(`num_of_txns) begin
-      req =  fifo_read_seq_item::type_id::create("req");
-      `uvm_rand_send_with(req,{req.rinc == 1;})
-    end
+    wait_for_grant();
+    item.randomize() with {winc == 0;};
+                send_request(item);
+    wait_for_item_done();
+        endtask
+endclass
 
- endtask: body
+class rempty_write_sequence extends uvm_sequence #(wr_seq_item);
+  `uvm_object_utils(rempty_write_sequence);
 
-endclass : fifo_rsequence3
-
-
-/*class fifo_virtual_sequence extends uvm_sequence;
-
-  `uvm_object_utils(fifo_virtual_sequence)
-  fifo_write_sequence wr_base_seq;
-  fifo_read_sequence rd_base_seq;
-
-  fifo_write_sequencer wr_seqr;
-  fifo_read_sequencer rd_seqr;
-
-  `uvm_declare_p_sequencer(virtual_seqr)
-
-  function new(string name = "fifo_virtual_sequence");
+  function new(string name="rempty_write_sequence");
     super.new(name);
   endfunction
 
   task body();
-    wr_base_seq = fifo_write_sequence::type_id::create("wr_base_seq");
-    rd_base_seq = fifo_read_sequence::type_id::create("rd_base_seq");
-    fork
-    wr_base_seq.start(p_sequencer.wr_seqr);
-    rd_base_seq.start(p_sequencer.rd_seqr);
-    join
+    int count;
+    wr_seq_item item;
+    repeat(4)begin
+      item = wr_seq_item::type_id::create("write_item");
+      wait_for_grant();
+      item.randomize() with {winc == 1;};
+      `uvm_info(get_type_name(), $sformatf("[%0t] Write Transaction %0d: winc=%0b, wdata=%0d", $time, count, item.winc, item.wdata), UVM_LOW);
+      send_request(item);
+      wait_for_item_done();
+    end
+    repeat (N) begin
+      item = wr_seq_item::type_id::create("write_item");
+      wait_for_grant();
+      item.randomize() with {winc == 0;};
+      `uvm_info(get_type_name(), $sformatf("[%0t] Write Transaction %0d: winc=%0b, wdata=%0d", $time, count, item.winc, item.wdata), UVM_LOW);
+      send_request(item);
+      wait_for_item_done();
+      count++;
+    end
+
   endtask
-endclass*/
+endclass
 
-class fifo_vsequence extends uvm_sequence;
-
-  fifo_wsequence wseq;
-  fifo_rsequence rseq;
-
-  fifo_wsequence2 wseq2;
-  fifo_rsequence2 rseq2;
-
-  fifo_wsequence3 wseq3;
-  fifo_rsequence3 rseq3;
-
-  fifo_write_sequencer wr_seqr;
-  fifo_read_sequencer rd_seqr;
-
-  `uvm_object_utils(fifo_vsequence)
-  `uvm_declare_p_sequencer(virtual_seqr)
-
-  function new(string name = "fifo_vsequence");
+class rempty_read_sequence extends uvm_sequence #(rd_seq_item);
+  `uvm_object_utils(rempty_read_sequence)
+  function new(string name="rempty_read_sequence");
     super.new(name);
-  endfunction: new
+  endfunction
+
+  virtual task body();
+    int count;
+    rd_seq_item item;
+    repeat(4) begin
+      item = rd_seq_item::type_id::create("read_item");
+      wait_for_grant();
+      item.randomize() with {rinc == 0;};
+      `uvm_info(get_type_name(), $sformatf("[%0t] Read Transaction %0d: rinc=%0b", $time, count, item.rinc), UVM_LOW);
+      send_request(item);
+      wait_for_item_done();
+    end
+    repeat(N) begin
+      item = rd_seq_item::type_id::create("read_item");
+      wait_for_grant();
+      item.randomize() with {rinc == 1;};
+      `uvm_info(get_type_name(), $sformatf("[%0t] Read Transaction %0d: rinc=%0b", $time, count, item.rinc), UVM_LOW);
+      send_request(item);
+      wait_for_item_done();
+    end
+  endtask
+endclass
+
+class wfull_write_sequence extends uvm_sequence #(wr_seq_item);
+  `uvm_object_utils(wfull_write_sequence);
+
+  function new(string name="wfull_write_sequence");
+    super.new(name);
+  endfunction
 
   task body();
-    wseq = fifo_wsequence::type_id::create("wseq");
-    rseq = fifo_rsequence::type_id::create("rseq");
-    wseq2 = fifo_wsequence2::type_id::create("wseq2");
-    rseq2 = fifo_rsequence2::type_id::create("rseq2");
-    wseq3 = fifo_wsequence3::type_id::create("wseq3");
-    rseq3 = fifo_rsequence3::type_id::create("rseq3");
+    int count;
+    wr_seq_item item;
+    repeat (DEPTH + 2) begin
+      item = wr_seq_item::type_id::create("write_item");
+      wait_for_grant();
+      item.randomize() with {winc == 1;};
+      `uvm_info(get_type_name(), $sformatf("[%0t] Write Transaction %0d: winc=%0b, wdata=%0d", $time, count, item.winc, item.wdata), UVM_LOW);
+      send_request(item);
+      wait_for_item_done();
+      count++;
+    end
 
-    fork
-      wseq.start(p_sequencer.wr_seqr);
-      rseq.start(p_sequencer.rd_seqr);
-    join
-    fork
-      //wseq.start(p_sequencer.wr_seqr);
-      //rseq3.start(p_sequencer.rd_seqr);
-    join
+  endtask
+endclass
 
+class wfull_read_sequence extends uvm_sequence #(rd_seq_item);
+  `uvm_object_utils(wfull_read_sequence)
+  function new(string name="rempty_read_sequence");
+    super.new(name);
+  endfunction
 
-    fork
-      begin
-        wseq2.start(p_sequencer.wr_seqr);
-        rseq2.start(p_sequencer.rd_seqr);
-      end
-    join
+  virtual task body();
+    int count;
+    rd_seq_item item;
 
-    fork
-      begin
-        wseq3.start(p_sequencer.wr_seqr);
-        rseq3.start(p_sequencer.rd_seqr);
-      end
-    join
-    fork
-      begin
-        wseq3.start(p_sequencer.wr_seqr);
-        rseq3.start(p_sequencer.rd_seqr);
-        wseq2.start(p_sequencer.wr_seqr);
-        rseq2.start(p_sequencer.rd_seqr);
-      end
-    join
-  endtask: body
-
-endclass: fifo_vsequence
-
+    repeat(DEPTH + 2) begin
+      item = rd_seq_item::type_id::create("read_item");
+      wait_for_grant();
+      item.randomize() with {rinc == 0;};
+      `uvm_info(get_type_name(), $sformatf("[%0t] Read Transaction %0d: rinc=%0b", $time, count, item.rinc), UVM_LOW);
+      send_request(item);
+      wait_for_item_done();
+    end
+  endtask
+endclass

@@ -1,88 +1,80 @@
-`include "defines.svh"
+//`include "defines.svh"
 
-class fifo_write_monitor extends uvm_monitor;
+class wr_monitor extends uvm_monitor;
+        `uvm_component_utils(wr_monitor);
+        virtual inf vif;
+        //event we;
+        wr_seq_item pkt;
+        uvm_analysis_port#(wr_seq_item) item_collect_wr_mon;
+        function new(string name = "wr_monitor", uvm_component parent = null);
+                super.new(name, parent);
+        endfunction
 
-  `uvm_component_utils(fifo_write_monitor)
-  int count;
-  virtual fifo_intf vif;
-  uvm_analysis_port#(fifo_write_seq_item)analysis_write_port;
-  uvm_analysis_port#(fifo_write_seq_item)analysis_write_cg_port;
-  fifo_write_seq_item wr_mon_seq;
+        function void build_phase(uvm_phase phase);
+                super.build_phase(phase);
+                if(!uvm_config_db#(virtual inf)::get(this, "", "vif", vif))
+                        `uvm_warning("ERR", "Cannot access write interface");
+                /*if(!uvm_config_db#(event)::get(this, "", "we", we))
+                        `uvm_warning("ERR", "Cannot access write event");*/
+                pkt = wr_seq_item::type_id::create("pkt");
+                item_collect_wr_mon = new("icwm", this);
+        endfunction
 
-  function new(string name = "fifo_write_monitor", uvm_component parent);
-    super.new(name,parent);
-    analysis_write_port = new("analysis_write_port",this);
-    analysis_write_cg_port = new("analysis_write_cg_port",this);
-    wr_mon_seq = new();
-  endfunction
+        task monitor();
+                //wait(we);
+                `uvm_info("WR_MON", $sformatf("winc = %0b | wfull = %0d", vif.winc, vif.wfull), UVM_MEDIUM);
+                pkt.winc = vif.write_mon_cb.winc;
+                pkt.wdata = vif.write_mon_cb.wdata;
+                pkt.wfull = vif.write_mon_cb.wfull;
+                item_collect_wr_mon.write(pkt);
+        endtask
 
-  function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
-    if(!uvm_config_db#(virtual fifo_intf)::get(this,"","fifo_intf",vif))
-      `uvm_error(get_type_name(), "Failed to get virtual interface")
-  endfunction
-
-  function void wr_monitor();
-    wr_mon_seq.winc = vif.winc;
-    wr_mon_seq.wdata = vif.wdata;
-    wr_mon_seq.wfull = vif.wfull;
-    analysis_write_port.write(wr_mon_seq);
-    analysis_write_cg_port.write(wr_mon_seq);
-  endfunction
-
-  task run_phase(uvm_phase phase);
-    repeat(4)@(vif.mon_w_cb);
-    forever begin
-      repeat(1)@(vif.mon_w_cb);
-      wr_monitor();
-      `uvm_info(get_type_name(), $sformatf("| WRITE-MONITOR-INPUTS | WINC = %0d | WDATA = %0d | ",  wr_mon_seq.winc, wr_mon_seq.wdata ), UVM_MEDIUM)
-      `uvm_info(get_type_name(), $sformatf("| WRITE_MONITOR-OUTPUT | WFULL = %0d |",wr_mon_seq.wfull), UVM_MEDIUM)
-      $display("");
-//      repeat(1)@(vif.mon_w_cb);
-    end
-  endtask
-
+        task run_phase(uvm_phase phase);
+                repeat(2)@(vif.write_mon_cb);
+                forever begin
+                        monitor();
+                        repeat(1)@(vif.write_mon_cb);
+                end
+        endtask
 endclass
 
-class fifo_read_monitor extends uvm_monitor;
+////////////////////////////////////////////////////////////////////////////////////////////
 
-  `uvm_component_utils(fifo_read_monitor)
-  fifo_read_seq_item rd_mon_seq;
-  virtual fifo_intf vif;
-  uvm_analysis_port#(fifo_read_seq_item)analysis_read_port;
-  uvm_analysis_port#(fifo_read_seq_item)analysis_read_cg_port;
+class rd_monitor extends uvm_monitor;
+  `uvm_component_utils(rd_monitor);
+  virtual inf vif;
+  //event re;
+  rd_seq_item pkt;
+  uvm_analysis_port#(rd_seq_item) item_collect_rd_mon;
 
-  function new(string name = "fifo_read_monitor",uvm_component parent);
-    super.new(name,parent);
-    analysis_read_port = new("analysis_read_port",this);
-    analysis_read_cg_port = new("analysis_read_cg_port",this);
-    rd_mon_seq = new();
+  function new(string name = "rd_monitor", uvm_component parent = null);
+    super.new(name, parent);
   endfunction
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    if(!uvm_config_db#(virtual fifo_intf)::get(this,"","fifo_intf",vif))
-      `uvm_error(get_type_name(), "Failed to get virtual interface")
+    if(!uvm_config_db#(virtual inf)::get(this, "", "vif", vif))
+      `uvm_warning("ERR", "Cannot access read interface");
+  /*  if(!uvm_config_db#(event)::get(this, "", "re", re))
+      `uvm_warning("ERR", "Cannot access read event");*/
+    pkt = rd_seq_item::type_id::create("pkt");
+    item_collect_rd_mon = new("icrm", this);
   endfunction
 
-  function void rd_monitor();
-    rd_mon_seq.rinc = vif.rinc;
-    rd_mon_seq.rdata = vif.rdata;
-    rd_mon_seq.rempty = vif.rempty;
-    analysis_read_port.write(rd_mon_seq);
-    analysis_read_cg_port.write(rd_mon_seq);
-  endfunction
-
-  task run_phase(uvm_phase phase);
-    repeat(4)@(vif.mon_r_cb);
-    forever begin
-      repeat(1)@(vif.mon_r_cb);
-      rd_monitor();
-      `uvm_info(get_type_name(), $sformatf("| READ-MONITOR-INPUTS |  RINC = %0d |", rd_mon_seq.rinc), UVM_MEDIUM)
-      `uvm_info(get_type_name(), $sformatf("| READ_MONITOR-OUTPUT | RDATA = %0d | REMPTY = %0d | ",rd_mon_seq.rdata,rd_mon_seq.rempty), UVM_MEDIUM)
-      $display("");
-//      repeat(1)@(vif.mon_r_cb);
-    end
+  task monitor();
+    //wait(re);
+    `uvm_info(get_type_name(), $sformatf("rempty = %0b | rdata = %0d", vif.rempty, vif.rdata), UVM_MEDIUM);
+    pkt.rinc = vif.read_mon_cb.rinc;
+    pkt.rempty = vif.read_mon_cb.rempty;
+    pkt.rdata = vif.read_mon_cb.rdata;
   endtask
 
+  task run_phase(uvm_phase phase);
+    repeat(2)@(vif.read_mon_cb);
+    forever begin
+      monitor();
+      item_collect_rd_mon.write(pkt);
+      @(vif.read_mon_cb);
+    end
+  endtask
 endclass

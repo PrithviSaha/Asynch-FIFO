@@ -1,49 +1,42 @@
 `include "defines.svh"
-`include "uvm_macros.svh"
-`include "fifo_interface.sv"
 `include "FIFO.v"
+//`include "uvm_macros.svh"
+`include "fifo_package.sv"
+`include "fifo_interface.sv"
+//`include "FIFO.v"
+
+import fifo_pkg::*;
 
 module top;
-  import uvm_pkg::*;
-  import fifo_pkg::*;
-  
-  bit wclk;
-  bit rclk;
-  bit rrst_n;
-  bit wrst_n;
+        `include "uvm_macros.svh"
+        import uvm_pkg::*;
 
-  fifo_intf intf(wclk,wrst_n,rrst_n,rclk);
+        bit wclk, rclk;
+        bit rrst_n, wrst_n;
 
-  FIFO dut(.rdata(intf.rdata), .wfull(intf.wfull), .rempty(intf.rempty), .wdata(intf.wdata), .winc(intf.winc), .wclk(wclk), .wrst_n(wrst_n), .rinc(intf.rinc), .rclk(rclk), .rrst_n(rrst_n));
- 
+        always #20 rclk = ~rclk;
+        always #10 wclk = ~wclk;
 
+        inf vif(rclk, rrst_n, wclk, wrst_n);
 
-  always #5 wclk = ~wclk;
-  always #10 rclk = ~rclk;
+        event we, re;
+
+        FIFO #(DSIZE, ASIZE) dut(.rdata(vif.rdata), .wfull(vif.wfull), .rempty(vif.rempty), .wdata(vif.wdata), .winc(vif.winc), .wclk(wclk), .wrst_n(wrst_n), .rinc(vif.rinc), .rclk(rclk), .rrst_n(rrst_n));
 
   initial begin
-    //#10;
-    rrst_n = 0;
-    #20;
-    rrst_n = 1;
+    rrst_n = 1'b1;
+    #10 rrst_n = 1'b0;
+    #20 rrst_n = 1'b1;
   end
-
   initial begin
-
-    //#5;
-    wrst_n = 0;
-    #40;
-    wrst_n = 1;
-
+    wrst_n = 1'b1;
+    #5 wrst_n = 1'b0;
+    #10 wrst_n = 1'b1;
   end
-
-  initial begin
-//    #20;
-//    wrst_n = 0;
-//    #20;
-//    wrst_n = 1;
-    uvm_config_db#(virtual fifo_intf)::set(null, "*", "fifo_intf",intf);
-    run_test("fifo_test");
-  end
-
+        initial begin
+                uvm_config_db#(virtual inf)::set(null, "*", "vif", vif);
+                uvm_config_db#(event)::set(null, "*", "we", we);
+                uvm_config_db#(event)::set(null, "*", "re", re);
+                run_test("reg_test");
+        end
 endmodule

@@ -1,70 +1,70 @@
-`uvm_analysis_imp_decl(_wr_mon_cg)
-`uvm_analysis_imp_decl(_rd_mon_cg)
+`uvm_analysis_imp_decl(_read)
+`uvm_analysis_imp_decl(_write)
+class coverage extends uvm_component;
+        `uvm_component_utils(coverage);
 
-class fifo_coverage extends uvm_component;
+        uvm_analysis_imp_read #(rd_seq_item, coverage) rd_item_collect_cov;
+        uvm_analysis_imp_write #(wr_seq_item, coverage) wr_item_collect_cov;
 
-  `uvm_component_utils(fifo_coverage)
-  uvm_analysis_imp_wr_mon_cg#(fifo_write_seq_item, fifo_coverage)analysis_write_cg_imp;
-  uvm_analysis_imp_rd_mon_cg#(fifo_read_seq_item, fifo_coverage)analysis_read_cg_imp;
-    
-  fifo_write_seq_item wr_seq;
-  fifo_read_seq_item rd_seq;
+        wr_seq_item wr_pkt;
+				rd_seq_item rd_pkt;
 
-  covergroup wr_mon_cgrp;
-    WINC_CP : coverpoint wr_seq.winc;
-    WDATA_CP : coverpoint wr_seq.wdata {
-      bins write_data_low = {[0:127]};
-      bins write_data_high = {[128:255]};
-    }
-    WFULL_CP : coverpoint wr_seq.wfull;
+covergroup wr_cg;
+                //wrst_n_cp : coverpoint wr_pkt.wrst_n;
+                wdata_cp : coverpoint wr_pkt.wdata{
+                                bins low = {[0 : (2**DSIZE) / 2]};
+                                bins high = {[(2**DSIZE / 2) + 1 : 2 ** DSIZE - 1]};
+                }
+                winc_cp : coverpoint wr_pkt.winc;
+                wfull_cp : coverpoint wr_pkt.wfull;
+        endgroup
 
-    WFULL_CP_x_WDATA_CP :  cross WFULL_CP,WDATA_CP;   
+        covergroup rd_cg;
+                //rrst_n_cp : coverpoint rd_pkt.rrst_n;
+                rinc_cp : coverpoint rd_pkt.rinc;
+                rempty_cp : coverpoint rd_pkt.rempty;
+                rdata_cp : coverpoint rd_pkt.rdata{
+                                bins low = {[0 : (2**DSIZE) / 2]};
+                                bins high = {[(2**DSIZE / 2) + 1 : 2 ** DSIZE - 1]};
+                }
+        endgroup
 
-  endgroup
+        function new(string name = "cov", uvm_component parent = null);
+                super.new(name, parent);
+                wr_cg = new();
+                rd_cg = new();
+                rd_item_collect_cov = new("ricc", this);
+                wr_item_collect_cov = new("wicc", this);
+        endfunction
 
-  covergroup rd_mon_cgrp;
-    RINC_CP : coverpoint rd_seq.rinc;
-    RDATA_CP : coverpoint rd_seq.rdata {
-      bins read_data = {[0:255]};
-    }
-    REMPTY_CP : coverpoint rd_seq.rempty;
+        function void write_write(wr_seq_item pkt);
+                wr_pkt = pkt;
+                wr_cg.sample();
+        endfunction
 
-   // REMPTY_CP_x_RINC_CP : cross REMPTY_CP, RINC_CP;
-  endgroup  
-  
-  function new(string name = "fifo_coverage", uvm_component parent);
-    super.new(name,parent);
-    wr_mon_cgrp = new();
-    rd_mon_cgrp = new();
-    analysis_write_cg_imp = new("analysis_write_cg_imp",this);
-    analysis_read_cg_imp = new("analysis_read_cg_imp",this);
-  endfunction
-
-  function void write_wr_mon_cg(fifo_write_seq_item req);
-    wr_seq = req;
-    wr_mon_cgrp.sample();
-  endfunction
-
-  function void write_rd_mon_cg(fifo_read_seq_item req);
-    rd_seq = req;
-    rd_mon_cgrp.sample();
-  endfunction
-
+        function void write_read(rd_seq_item pkt);
+                rd_pkt = pkt;
+                rd_cg.sample();
+        endfunction
+/*
+        function void extract_phase(uvm_phase phase);
+                super.extract_phase(phase);
+                `uvm_info("COV", $sformatf("read coverage = %0f, write coverage = %0f", rd_cg.get_inst_coverage(), wr_cg.get_inst_coverage()), UVM_LOW);
+        endfunction
+*/
   function void report_phase(uvm_phase phase);
    super.report_phase(phase);
     $display("------------------------- WRITE - COVERAGE ------------------------------");
     $display("");
-    $display(" !!!! WRITE MONITOR COVERAGE = %0.2f %% !!!!",wr_mon_cgrp.get_coverage());
+    $display(" !!!! WRITE MONITOR COVERAGE = %0.2f %% !!!!",wr_cg.get_coverage());
     $display("");
     $display("------------------------- WRITE -COVERAGE ------------------------------");
     $display("");
     $display("------------------------- READ - COVERAGE ------------------------------");
     $display("");
-    $display(" !!!! READ MONITOR COVERAGE = %0.2f %% !!!!",rd_mon_cgrp.get_coverage());
+    $display(" !!!! READ MONITOR COVERAGE = %0.2f %% !!!!",rd_cg.get_coverage());
     $display("");
     $display("------------------------- READ - COVERAGE ------------------------------"); 
   endfunction
-
-  
 
 endclass

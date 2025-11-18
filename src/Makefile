@@ -36,7 +36,8 @@ simulate:
 	vsim -c top +UVM_VERBOSITY=UVM_MEDIUM -do "run -all;exit"
 
 clean:
-	rm -rf transcript work/
+	rm -rf transcript work/ covReport/
+	rm vish_stacktrace.vstf
 	clear
 	clear
 

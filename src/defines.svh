@@ -1,4 +1,4 @@
-`define DSIZE 		8
-`define num_of_txns 	10
-`define ADDR 		4
-`define DEPTH 		1 << `ADDR
+parameter DSIZE = 8;
+parameter ASIZE = 4;
+parameter DEPTH = 1<<ASIZE;
+parameter N = 100;

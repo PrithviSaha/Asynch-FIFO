@@ -1,77 +1,70 @@
-class fifo_write_driver extends uvm_driver#(fifo_write_seq_item);
-
-  `uvm_component_utils(fifo_write_driver)
-
-  virtual fifo_intf vif;
-  bit drv;
-  function new(string name = "fifo_write_driver", uvm_component parent);
-    super.new(name,parent);
+class wr_driver extends uvm_driver #(wr_seq_item);
+  `uvm_component_utils(wr_driver);
+  virtual inf vif;
+  wr_seq_item req;
+  //event we;
+  function new(string name = "wr_driver", uvm_component parent = null);
+    super.new(name, parent);
   endfunction
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    if(!uvm_config_db#(virtual fifo_intf)::get(this,"","fifo_intf",vif))
-      `uvm_error(get_type_name(), "Failed to get Virtual Interface")
+    if(!uvm_config_db#(virtual inf)::get(this, "", "vif", vif))
+      `uvm_warning("ERR", "Cannot access write driver interface");
+    /*if(!uvm_config_db#(event)::get(this, "", "we", we))
+      `uvm_warning("ERR", "Cannot access write event");*/
   endfunction
 
+  task drive();
+    `uvm_info(get_type_name(), $sformatf("winc = %0b | wdata = %0d", req.winc, req.wdata), UVM_MEDIUM);
+    vif.write_drv_cb.winc <= req.winc;
+    vif.write_drv_cb.wdata <= req.wdata;
+    repeat(1)@(vif.write_drv_cb);
+//  ->we;
+  endtask
+
   task run_phase(uvm_phase phase);
-    repeat(3)@(vif.drv_w_cb);
+    repeat(1)@(vif.write_drv_cb);
     forever begin
       seq_item_port.get_next_item(req);
-      drive_wr_inputs();
-//      if(drv == 0) begin
-//        repeat(4)@(vif.drv_w_cb);
-//        drv = 1;
-//      end
-//      else begin
-      `uvm_info(get_type_name(), $sformatf("| -> WRITE - DRIVER <- | WINC = %0d |  WDATA = %0d |",req.winc,req.wdata), UVM_MEDIUM)
-        repeat(1)@(vif.drv_w_cb);
-//      end
-//      `uvm_info(get_type_name(), $sformatf("| -> WRITE - DRIVER <- | WINC = %0d |  WDATA = %0d |",req.winc,req.wdata), UVM_MEDIUM)
+      drive();
       seq_item_port.item_done();
     end
   endtask
-  task drive_wr_inputs();
-    vif.winc <= req.winc;
-    //vif.wrst_n <= req.wrst_n;
-    vif.wdata <= req.wdata;
-  endtask
+
 endclass
 
-class fifo_read_driver extends uvm_driver#(fifo_read_seq_item);
+////////////////////////////////////////////////////////////////////////////
 
-  `uvm_component_utils(fifo_read_driver)
-
-  virtual fifo_intf vif;
-  function new(string name = "fifo_read_driver", uvm_component parent);
-    super.new(name,parent);
+class rd_driver extends uvm_driver #(rd_seq_item);
+  `uvm_component_utils(rd_driver);
+  virtual inf vif;
+//  event e;
+  function new(string name = "rd_driver", uvm_component parent = null);
+    super.new(name, parent);
   endfunction
-  bit drv;
+
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    if(!uvm_config_db#(virtual fifo_intf)::get(this,"","fifo_intf",vif))
-      `uvm_error(get_type_name(), "Failed to get Virtual Interface")
+    if(!uvm_config_db#(virtual inf)::get(this, "", "vif", vif))
+      `uvm_warning("ERR", "Cannot access read driver interface");
+  /*  if(!uvm_config_db#(
+      `uvm_warning("ERR", "Cannot access read event");*/
   endfunction
 
+  task drive();
+    `uvm_info("RD_DRV", $sformatf("rinc = %0b", req.rinc), UVM_MEDIUM);
+    vif.read_drv_cb.rinc <= req.rinc;
+    repeat(1)@(vif.read_drv_cb);
+  //  ->e;
+  endtask
+
   task run_phase(uvm_phase phase);
-    repeat(3)@(vif.drv_r_cb);
+    repeat(1)@(vif.read_drv_cb);
     forever begin
       seq_item_port.get_next_item(req);
-      drive_rd_inputs();
-//     if(drv == 0) begin
-//        repeat(4)@(vif.drv_r_cb);
-//        drv = 1;
-//      end
-//      else begin
-
-        `uvm_info(get_type_name(), $sformatf("| -> READ - DRIVER <- | RINC = %0d |",req.rinc), UVM_MEDIUM)
-        repeat(1)@(vif.drv_r_cb);
-//      end
-      //`uvm_info(get_type_name(), $sformatf("| -> READ - DRIVER <- | RINC = %0d |",req.rinc), UVM_MEDIUM)
+      drive();
       seq_item_port.item_done();
     end
-  endtask
-  task drive_rd_inputs();
-    vif.rinc <= req.rinc;
   endtask
 endclass

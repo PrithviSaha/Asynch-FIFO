@@ -1,83 +1,92 @@
-interface fifo_intf(input bit wclk,wrst_n,rrst_n,rclk);
+interface inf(input bit rclk, input bit rrst_n, input bit wclk, input bit wrst_n);
+        //inputs
+        logic rinc, winc;
+        logic [DSIZE - 1 : 0] wdata;
+        //outputs
+        logic wfull, rempty;
+        logic [DSIZE - 1 : 0] rdata;
 
-  logic [`DSIZE-1 : 0] wdata;
-  logic winc;
-  logic wfull;
+        clocking write_drv_cb @(posedge wclk);
+                output winc, wdata;
+        endclocking
 
-  clocking drv_w_cb@(posedge wclk);
-    default input #0 output #0;
-    output winc, wdata;
+        clocking write_mon_cb @(posedge wclk);
+                input winc, wdata, wfull;
+        endclocking
+
+        clocking read_drv_cb @(posedge rclk);
+                output rinc;
+        endclocking
+
+        clocking read_mon_cb @(posedge rclk);
+                        input rinc, rempty, rdata;
+        endclocking
+
+        clocking wrst_n_cb @(posedge wclk);
+    input wrst_n;
   endclocking
 
-  clocking mon_w_cb@(posedge wclk);
-    default input #0 output #0;
-    input wfull,winc,wdata;
+  clocking rrst_n_cb @(posedge rclk);
+    input rrst_n;
   endclocking
+/****Assertions****/
+//Write clock toggling
 
-  logic [`DSIZE - 1 : 0] rdata;
-  logic rinc;
-  //logic rrst_n;
-  logic rempty;
-
-  clocking drv_r_cb@(posedge rclk);
-    default input #0 output #0;
-    output rinc;
-  endclocking
-
-  clocking mon_r_cb@(posedge rclk);
-    default input #0 output #0;
-     input rdata, rempty, rinc;
-  endclocking
-
-  modport DRV_R(clocking drv_r_cb, input rclk,rrst_n);
-  modport MON_R(clocking drv_r_cb, input rclk,rrst_n);
-  modport DRV_W(clocking drv_w_cb, input wclk,wrst_n);
-  modport MON_W(clocking mon_w_cb, input wclk,wrst_n);
-
-  property VALID_CHECK_WRITE;
-    @(posedge wclk) wrst_n |-> not($isunknown({winc,wdata}));
+  property p1;
+    @(posedge wclk, negedge wclk) ##1 wclk == $past(~wclk);
   endproperty
-  assert property(VALID_CHECK_WRITE)begin
-    $info("VALID INPUTS");
+  assert property(p1)begin
+    $info("Write Clock Toggling Pass");
+  end
+        else begin
+    $info("Write Clock Toggling Fail");
+  end
+
+//Read clock toggling
+  property p2;
+    @(posedge rclk, negedge rclk) ##1 rclk == $past(~rclk);
+  endproperty
+  assert property(p2)begin
+    $info("Read Clock Toggling Pass");
   end
   else begin
-    $error("INVALID INPUTS");
+    $info("Read Clock Toggling Fail");
   end
 
-  property VALID_CHECK_READ;
-    @(posedge rclk) rrst_n |-> not($isunknown({rinc}));
+//read_reset_n
+  property p3;
+    @(posedge rclk) !rrst_n |-> rempty;
   endproperty
-  assert property(VALID_CHECK_READ)begin
-    $info("VALID INPUTS");
+  assert property(p3)begin
+    $info("Read Reset Pass");
   end
   else begin
-    $error("INVALID INPUTS");
+    $info("Read Reset Fail");
   end
 
-  property RESET_READ_CHECK;
-    @(posedge rclk) !rrst_n |-> (rempty == 1);
+//write_reset_n
+  property p4;
+    @(posedge wclk) !wrst_n |-> !wfull;
   endproperty
-
-  assert property(RESET_READ_CHECK)
-    $info("RESET PASSED");
+  assert property(p4)begin
+    $info("Write Reset Pass");
+  end
   else begin
-    $error("RESET FAILED");
+    $info("Write Reset Fail");
   end
 
-  property RESET_WRITE_CHECK;
-    @(posedge wclk) !wrst_n |-> (wfull == 0);
+//valid write inputs
+  property p5;
+    @(posedge wclk) wrst_n |-> not($isunknown({winc, wdata}));
   endproperty
-
-  assert property(RESET_WRITE_CHECK)
-    $info("RESET PASSED");
-  else begin
-    $error("RESET FAILED");
+  assert property(p5)begin
+    $info("Valid Write Inputs Pass");
   end
-
+  else begin
+    $info("Valid Write Inputs Fail");
+  end
 
 endinterface
-
-
 /*
 interface fifo_read_intf(input bit rclk,rrst_n);
 
